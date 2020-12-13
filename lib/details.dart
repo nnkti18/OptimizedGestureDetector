@@ -2,27 +2,21 @@ import 'package:flutter/gestures.dart';
 import 'package:optimized_gesture_detector/direction.dart';
 
 class OpsMoveStartDetails {
-  OpsMoveStartDetails({this.globalPoint = Offset.zero, Offset localPoint})
-      : localPoint = localPoint ?? globalPoint;
+  OpsMoveStartDetails({this.globalPoint = Offset.zero, Offset? localPoint}) : localPoint = localPoint ?? globalPoint;
 
   final Offset localPoint;
   final Offset globalPoint;
 }
 
 class OpsMoveUpdateDetails {
-  OpsMoveUpdateDetails({this.globalPoint = Offset.zero, Offset localPoint})
-      : localPoint = localPoint ?? globalPoint;
+  OpsMoveUpdateDetails({this.globalPoint = Offset.zero, Offset? localPoint}) : localPoint = localPoint ?? globalPoint;
 
   final Offset localPoint;
   final Offset globalPoint;
 }
 
 class OpsMoveEndDetails {
-  OpsMoveEndDetails(
-      {this.velocity = Velocity.zero,
-      this.globalPoint = Offset.zero,
-      Offset localPoint})
-      : localPoint = localPoint ?? globalPoint;
+  OpsMoveEndDetails({this.velocity = Velocity.zero, this.globalPoint = Offset.zero, Offset? localPoint}) : localPoint = localPoint ?? globalPoint;
 
   final Velocity velocity;
   final Offset localPoint;
@@ -30,8 +24,7 @@ class OpsMoveEndDetails {
 }
 
 class OpsScaleStartDetails {
-  OpsScaleStartDetails({this.globalPoint = Offset.zero, Offset localPoint})
-      : localPoint = localPoint ?? globalPoint;
+  OpsScaleStartDetails({this.globalPoint = Offset.zero, Offset? localPoint}) : localPoint = localPoint ?? globalPoint;
 
   final Offset localPoint;
   final Offset globalPoint;
@@ -40,8 +33,8 @@ class OpsScaleStartDetails {
 class OpsScaleUpdateDetails {
   OpsScaleUpdateDetails(
       {this.globalFocalPoint = Offset.zero,
-      Offset localFocalPoint,
-      Direction mainDirection,
+      Offset? localFocalPoint,
+      Direction? mainDirection,
       this.scale = 1.0,
       this.horizontalScale = 1.0,
       this.verticalScale = 1.0,
@@ -49,8 +42,8 @@ class OpsScaleUpdateDetails {
       : localFocalPoint = localFocalPoint ?? globalFocalPoint,
         mainDirection = mainDirection ?? Direction.X;
 
-  final Direction mainDirection;
-  final Offset localFocalPoint;
+  late Direction mainDirection;
+  late Offset localFocalPoint;
   final Offset globalFocalPoint;
   final double scale;
   final double horizontalScale;
@@ -59,11 +52,7 @@ class OpsScaleUpdateDetails {
 }
 
 class OpsScaleEndDetails {
-  OpsScaleEndDetails(
-      {this.velocity = Velocity.zero,
-      this.globalPoint = Offset.zero,
-      Offset localPoint})
-      : localPoint = localPoint ?? globalPoint;
+  OpsScaleEndDetails({this.velocity = Velocity.zero, this.globalPoint = Offset.zero, Offset? localPoint}) : localPoint = localPoint ?? globalPoint;
 
   final Velocity velocity;
   final Offset localPoint;

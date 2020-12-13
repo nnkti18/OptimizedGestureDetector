@@ -5,7 +5,7 @@ import 'package:optimized_gesture_detector/scale.dart' as scale;
 
 class CoreGestureDetector extends StatelessWidget {
   CoreGestureDetector(
-      {Key key,
+      {Key? key,
       this.child,
       this.onTapDown,
       this.onTapUp,
@@ -21,26 +21,24 @@ class CoreGestureDetector extends StatelessWidget {
       this.dragStartBehavior = DragStartBehavior.start,
       this.canHDragDown,
       this.canVDragDown})
-      : assert(excludeFromSemantics != null),
-        assert(dragStartBehavior != null),
-        super(key: key);
+      : super(key: key);
 
   /// The widget below this widget in the tree.
   ///
   /// {@macro flutter.widgets.child}
-  final Widget child;
+  final Widget? child;
 
-  final GestureTapDownCallback onTapDown;
-  final GestureTapUpCallback onTapUp;
-  final GestureTapCancelCallback onTapCancel;
+  final GestureTapDownCallback? onTapDown;
+  final GestureTapUpCallback? onTapUp;
+  final GestureTapCancelCallback? onTapCancel;
 
-  final GestureLongPressStartCallback onLongPressStart;
-  final GestureLongPressMoveUpdateCallback onLongPressMoveUpdate;
-  final GestureLongPressEndCallback onLongPressEnd;
+  final GestureLongPressStartCallback? onLongPressStart;
+  final GestureLongPressMoveUpdateCallback? onLongPressMoveUpdate;
+  final GestureLongPressEndCallback? onLongPressEnd;
 
-  final scale.GestureScaleStartCallback onScaleStart;
-  final scale.GestureScaleUpdateCallback onScaleUpdate;
-  final scale.GestureScaleEndCallback onScaleEnd;
+  final scale.GestureScaleStartCallback? onScaleStart;
+  final scale.GestureScaleUpdateCallback? onScaleUpdate;
+  final scale.GestureScaleEndCallback? onScaleEnd;
 
 //  /// The pointer is in contact with the screen and has pressed with sufficient
 //  /// force to initiate a force press. The amount of force is at least
@@ -77,7 +75,7 @@ class CoreGestureDetector extends StatelessWidget {
   ///
   /// This defaults to [HitTestBehavior.deferToChild] if [child] is not null and
   /// [HitTestBehavior.translucent] if child is null.
-  final HitTestBehavior behavior;
+  final HitTestBehavior? behavior;
 
   /// Whether to exclude these gestures from the semantics tree. For
   /// example, the long-press gesture for showing a tooltip is
@@ -109,17 +107,15 @@ class CoreGestureDetector extends StatelessWidget {
 
   final GestureArenaTeam _team = GestureArenaTeam();
 
-  final CanDragDownFunction canHDragDown;
-  final CanDragDownFunction canVDragDown;
+  final CanDragDownFunction? canHDragDown;
+  final CanDragDownFunction? canVDragDown;
 
   @override
   Widget build(BuildContext context) {
-    final Map<Type, GestureRecognizerFactory> gestures =
-        <Type, GestureRecognizerFactory>{};
+    final Map<Type, GestureRecognizerFactory> gestures = <Type, GestureRecognizerFactory>{};
 
     if (onTapDown != null || onTapUp != null || onTapCancel != null) {
-      gestures[TapGestureRecognizer] =
-          GestureRecognizerFactoryWithHandlers<TapGestureRecognizer>(
+      gestures[TapGestureRecognizer] = GestureRecognizerFactoryWithHandlers<TapGestureRecognizer>(
         () => TapGestureRecognizer(debugOwner: this),
         (TapGestureRecognizer instance) {
           instance
@@ -130,11 +126,8 @@ class CoreGestureDetector extends StatelessWidget {
       );
     }
 
-    if (onLongPressStart != null ||
-        onLongPressMoveUpdate != null ||
-        onLongPressEnd != null) {
-      gestures[LongPressGestureRecognizer] =
-          GestureRecognizerFactoryWithHandlers<LongPressGestureRecognizer>(
+    if (onLongPressStart != null || onLongPressMoveUpdate != null || onLongPressEnd != null) {
+      gestures[LongPressGestureRecognizer] = GestureRecognizerFactoryWithHandlers<LongPressGestureRecognizer>(
         () => LongPressGestureRecognizer(debugOwner: this),
         (LongPressGestureRecognizer instance) {
           instance
@@ -146,8 +139,7 @@ class CoreGestureDetector extends StatelessWidget {
     }
 
     if (onScaleStart != null || onScaleUpdate != null || onScaleEnd != null) {
-      gestures[scale.OpsScaleGestureRecognizer] =
-          GestureRecognizerFactoryWithHandlers<scale.OpsScaleGestureRecognizer>(
+      gestures[scale.OpsScaleGestureRecognizer] = GestureRecognizerFactoryWithHandlers<scale.OpsScaleGestureRecognizer>(
         () => scale.OpsScaleGestureRecognizer(debugOwner: this),
         (scale.OpsScaleGestureRecognizer instance) {
           _team.captain = instance;
@@ -155,15 +147,14 @@ class CoreGestureDetector extends StatelessWidget {
             instance.team = _team;
           }
           instance
-            ..onStart = onScaleStart
-            ..onUpdate = onScaleUpdate
-            ..onEnd = onScaleEnd;
+            ..onStart = onScaleStart!
+            ..onUpdate = onScaleUpdate!
+            ..onEnd = onScaleEnd!;
         },
       );
     }
 
-    gestures[HorizontalDragGestureRecognizer] =
-        GestureRecognizerFactoryWithHandlers<HorizontalDragGestureRecognizer>(
+    gestures[HorizontalDragGestureRecognizer] = GestureRecognizerFactoryWithHandlers<HorizontalDragGestureRecognizer>(
       () => HorizontalDragGestureRecognizer(debugOwner: this),
       (HorizontalDragGestureRecognizer instance) {
         if (instance.team == null) {
@@ -178,8 +169,7 @@ class CoreGestureDetector extends StatelessWidget {
       },
     );
 
-    gestures[VerticalDragGestureRecognizer] =
-        GestureRecognizerFactoryWithHandlers<VerticalDragGestureRecognizer>(
+    gestures[VerticalDragGestureRecognizer] = GestureRecognizerFactoryWithHandlers<VerticalDragGestureRecognizer>(
       () => VerticalDragGestureRecognizer(debugOwner: this),
       (VerticalDragGestureRecognizer instance) {
         if (instance.team == null) {
@@ -202,23 +192,22 @@ class CoreGestureDetector extends StatelessWidget {
     );
   }
 
-  GestureDragDownCallback _gestureVDragDownCallback() {
+  GestureDragDownCallback? _gestureVDragDownCallback() {
     if (canVDragDown == null) return null;
 
-    return canVDragDown() ? (e) {} : null;
+    return canVDragDown!() ? (e) {} : null;
   }
 
-  GestureDragDownCallback _gestureHDragDownCallback() {
+  GestureDragDownCallback? _gestureHDragDownCallback() {
     if (canHDragDown == null) return null;
 
-    return canHDragDown() ? (e) {} : null;
+    return canHDragDown!() ? (e) {} : null;
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(
-        EnumProperty<DragStartBehavior>('startBehavior', dragStartBehavior));
+    properties.add(EnumProperty<DragStartBehavior>('startBehavior', dragStartBehavior));
   }
 }
 
