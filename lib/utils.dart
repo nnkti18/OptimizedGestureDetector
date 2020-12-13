@@ -23,12 +23,10 @@ class Util {
 
 class DetailsUtils {
   static OpsScaleStartDetails toOpsScaleStartDetails(OpsSStartDetails details) {
-    return OpsScaleStartDetails(
-        globalPoint: details.focalPoint, localPoint: details.localFocalPoint);
+    return OpsScaleStartDetails(globalPoint: details.focalPoint, localPoint: details.localFocalPoint);
   }
 
-  static OpsScaleUpdateDetails toOpsScaleUpdateDetails(
-      OpsSUpdateDetails details, Direction mainDirection) {
+  static OpsScaleUpdateDetails toOpsScaleUpdateDetails(OpsSUpdateDetails details, Direction? mainDirection) {
     return OpsScaleUpdateDetails(
         globalFocalPoint: details.focalPoint,
         localFocalPoint: details.localFocalPoint,
@@ -39,30 +37,19 @@ class DetailsUtils {
         rotation: details.rotation);
   }
 
-  static OpsScaleEndDetails toOpsScaleEndDetails(
-      OpsSEndDetails details, Offset globalPoint, Offset localPoint) {
-    return OpsScaleEndDetails(
-        velocity: details.velocity,
-        globalPoint: globalPoint,
-        localPoint: localPoint);
+  static OpsScaleEndDetails toOpsScaleEndDetails(OpsSEndDetails details, Offset globalPoint, Offset localPoint) {
+    return OpsScaleEndDetails(velocity: details.velocity, globalPoint: globalPoint, localPoint: localPoint);
   }
 
   static OpsMoveStartDetails toOpsMoveStartDetails(OpsSStartDetails details) {
-    return OpsMoveStartDetails(
-        globalPoint: details.focalPoint, localPoint: details.localFocalPoint);
+    return OpsMoveStartDetails(globalPoint: details.focalPoint, localPoint: details.localFocalPoint);
   }
 
-  static OpsMoveUpdateDetails toOpsMoveUpdateDetails(
-      OpsSUpdateDetails details) {
-    return OpsMoveUpdateDetails(
-        globalPoint: details.focalPoint, localPoint: details.localFocalPoint);
+  static OpsMoveUpdateDetails toOpsMoveUpdateDetails(OpsSUpdateDetails details) {
+    return OpsMoveUpdateDetails(globalPoint: details.focalPoint, localPoint: details.localFocalPoint);
   }
 
-  static OpsMoveEndDetails toOpsMoveEndDetails(
-      OpsSEndDetails details, Offset globalPoint, Offset localPoint) {
-    return OpsMoveEndDetails(
-        velocity: details.velocity,
-        globalPoint: globalPoint,
-        localPoint: localPoint);
+  static OpsMoveEndDetails toOpsMoveEndDetails(OpsSEndDetails details, Offset globalPoint, Offset localPoint) {
+    return OpsMoveEndDetails(velocity: details.velocity, globalPoint: globalPoint, localPoint: localPoint);
   }
 }
